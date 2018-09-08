@@ -1,0 +1,11 @@
+{
+    "name": "File hub backend",
+    "description": "This app does one little thing, and does it well.",
+
+    "image": "heroku/nodejs",
+    "buildpacks": [
+      {
+        "url": "https://github.com/heroku/heroku-buildpack-nodejs"
+      }
+    ]
+  }
