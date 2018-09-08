@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'FileHub';
-  url = 'http://localhost:3000/upload';
+  url = 'http://localhost:3000/file';
   filesToUpload: Array<File>;
 
   constructor() {
@@ -32,7 +32,7 @@ export class AppComponent {
       const formData: any = new FormData();
       const xhr = new XMLHttpRequest();
       for (let i = 0; i < files.length; i++) {
-        formData.append('uploads[]', files[i], files[i].name);
+        formData.append('fileToUpload', files[i], files[i].name);
       }
 
       xhr.onreadystatechange = function () {
