@@ -50,7 +50,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "FileHub:build"
+            "browserTarget": "FileHub:build",
+            "port": 3001
           },
           "configurations": {
             "production": {

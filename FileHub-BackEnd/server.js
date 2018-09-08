@@ -28,7 +28,8 @@ app.get("/", function(req, res){
 });
 
 // Serve app
-var server = app.listen(3000, function() {
+const port = 3000;
+var server = app.listen(port, function() {
     console.log("Listening on port %s...", server.address().port);
 })
 
