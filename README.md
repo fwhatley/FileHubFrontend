@@ -6,12 +6,12 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Run `npm install`
 
-Run `node app.js` to run server at `http://localhost:3000/`
+Run `npm start` to run server at `http://localhost:3000/`
 ## Development frontend server
 
 Run `npm install`
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `npm start` for a dev server. Navigate to `http://localhost:3001/`. The app will automatically reload if you change any of the source files.
 
 ## Code scaffolding
 
