@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +8,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'FileHub';
-  url = 'http://localhost:3000/file';
+  APIEndpoint: string = environment.APIEndpoint;
+  fileUrl = `${this.APIEndpoint}/file`;
   filesToUpload: Array<File>;
 
   constructor() {
@@ -15,7 +17,7 @@ export class AppComponent {
   }
 
   upload() {
-    this.makeFileRequest(this.url, [], this.filesToUpload).then((result) => {
+    this.makeFileRequest(this.fileUrl, [], this.filesToUpload).then((result) => {
       console.log(result);
     }, (error) => {
       console.error(error);
@@ -27,7 +29,7 @@ export class AppComponent {
     this.filesToUpload = <Array<File>> fileInput.target.files;
   }
 
-  makeFileRequest(url: string, params: Array<string>, files: Array<File> ) {
+  makeFileRequest(fileUrl: string, params: Array<string>, files: Array<File> ) {
     return new Promise((resolve, reject) => {
       const formData: any = new FormData();
       const xhr = new XMLHttpRequest();
@@ -45,7 +47,7 @@ export class AppComponent {
         }
       };
 
-      xhr.open('POST', url, true);
+      xhr.open('POST', fileUrl, true);
       xhr.send(formData);
 
     });
