@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { environment } from '../environments/environment';
+import { ImageFile } from './model/imageFile';
 
 @Component({
   selector: 'app-root',
@@ -7,29 +8,40 @@ import { environment } from '../environments/environment';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'FileHub';
   APIEndpoint: string = environment.APIEndpoint;
-  fileUrl = `${this.APIEndpoint}/file`;
+  fileUrl = `${this.APIEndpoint}/api/file`;
+
   filesToUpload: Array<File>;
+  images: Array<ImageFile>;
+  currentImageInModal: ImageFile;
+  showModal: boolean;
 
   constructor() {
     this.filesToUpload = [];
+    this.images = this.getImageList();
+    this.showModal = false;
   }
 
-  upload() {
+  // =============== public mehtods =================================
+  public upload(): void {
     this.makeFileRequest(this.fileUrl, [], this.filesToUpload).then((result) => {
       console.log(result);
     }, (error) => {
       console.error(error);
     });
-
   }
 
-  fileChangeEvent(fileInput: any) {
+  public fileChangeEvent(fileInput: any): void {
     this.filesToUpload = <Array<File>> fileInput.target.files;
   }
 
-  makeFileRequest(fileUrl: string, params: Array<string>, files: Array<File> ) {
+  public toggleModal(image: ImageFile): void {
+    this.currentImageInModal = image; // closing modal doesn't pass an image therefore img will be set to undefined
+    this.showModal = !this.showModal;
+  }
+
+  // ====================== private methods ========================
+  private makeFileRequest(fileUrl: string, params: Array<string>, files: Array<File> ) {
     return new Promise((resolve, reject) => {
       const formData: any = new FormData();
       const xhr = new XMLHttpRequest();
@@ -52,5 +64,27 @@ export class AppComponent {
 
     });
   }
+
+  private randomDate(start, end): Date {
+    return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+  }
+
+  private getImageList(): Array<ImageFile> {
+    const imageUrl = "https://via.placeholder.com/350x150";
+    const numberOfImages = 20;
+    const images: Array<ImageFile> = [];
+
+    for ( let i = 0; i < numberOfImages; i++ ) {
+      const image = new ImageFile();
+      image.url = imageUrl;
+      image.name = `This is a name - image: ${i}`;
+      image.createdUtc = this.randomDate(new Date(2012, 0, 1), new Date());
+      images.push(image);
+    }
+
+    return images;
+  }
+
+
 
 }

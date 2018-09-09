@@ -1,14 +1,27 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-</div>
-
-<p>Select file to upload</p>
-<div>
-  <input type="file" (change)="fileChangeEvent($event)" placeholder="Upload file..."/>
-  <button type="button" (click)="upload()">Upload</button>
-</div>
 
 
+<app-layout>
+
+  <div>
+    <h5>Select an image to upload</h5>
+    <input type="file" class="btn btn-light" (change)="fileChangeEvent($event)" placeholder="Upload file..."/>
+    <button type="button" class="btn btn-primary" (click)="upload()">Upload</button>
+  </div>
+  
+  <div class="images-section">
+    <h5>Images of Failed Automated Tests</h5>
+    <div class="image-wrap" *ngFor="let img of images" (click)="toggleModal(img)">
+      <img  id="myImg" src="{{img.url}}" alt="{{img.name}}">
+      <div class="image-date">{{img.createdUtc | date:'short'}}</div>
+      <p>{{img.name}}</p>
+    </div>
+  </div>
+
+  <!-- modal to display -->
+  <div id="myModal" class="modal" [style.display]="showModal? 'block':'none'" *ngIf="currentImageInModal">
+      <span class="close" (click)="toggleModal(img)">&times;</span>
+      <img class="modal-content" id="img01" src="{{currentImageInModal.url}}">
+      <div id="imageName">{{currentImageInModal.name}} | {{currentImageInModal.createdUtc | date:'short'}}</div>
+  </div>
+
+</app-layout>
