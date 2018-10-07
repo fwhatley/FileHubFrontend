@@ -7,6 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
+  enableQaTools = true;
+  devAppUrl  = `http://localhost:3001/dashboard`;
+  prodAppUrl = `https://file-hub-frontend.herokuapp.com/dashboard`;
+  devApiUrl  = `http://localhost:5000/index.html`;
+  prodApiUrl = `notimplemented`;
+
   constructor() { }
 
   ngOnInit() {
