@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { ImageFile } from '../model/imageFile';
+import { FileRecord } from '../model/imageFile';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,12 +10,13 @@ import { ImageFile } from '../model/imageFile';
 export class DashboardComponent implements OnInit {
 
   APIEndpoint: string = environment.APIEndpoint;
-  fileUrl = `${this.APIEndpoint}/api/file`;
+  fileUrl = `${this.APIEndpoint}/api/files`;
 
   filesToUpload: Array<File>;
-  images: Array<ImageFile>;
-  currentImageInModal: ImageFile;
+  images: Array<FileRecord>;
+  currentImageInModal: FileRecord;
   showModal: boolean;
+
 
   constructor() {
     this.filesToUpload = [];
@@ -39,7 +40,7 @@ export class DashboardComponent implements OnInit {
     this.filesToUpload = <Array<File>> fileInput.target.files;
   }
 
-  public toggleModal(image: ImageFile): void {
+  public toggleModal(image: FileRecord): void {
     this.currentImageInModal = image; // closing modal doesn't pass an image therefore img will be set to undefined
     this.showModal = !this.showModal;
   }
@@ -73,13 +74,13 @@ export class DashboardComponent implements OnInit {
     return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
   }
 
-  private getImageList(): Array<ImageFile> {
+  private getImageList(): Array<FileRecord> {
     const imageUrl = "https://via.placeholder.com/350x150";
     const numberOfImages = 20;
-    const images: Array<ImageFile> = [];
+    const images: Array<FileRecord> = [];
 
     for ( let i = 0; i < numberOfImages; i++ ) {
-      const image = new ImageFile();
+      const image = new FileRecord();
       image.url = imageUrl;
       image.name = `This is a name - image: ${i}`;
       image.createdUtc = this.randomDate(new Date(2012, 0, 1), new Date());

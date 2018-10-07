@@ -1,8 +1,9 @@
-export class ImageFile {
+export class FileRecord {
     id: string;
     name: string;
+    description: string;
     url: string;
-    tags: Array<string>;
+    tags: string;
     createdUtc: Date;
     updatedUtc: Date;
     deletedUtc: Date;
