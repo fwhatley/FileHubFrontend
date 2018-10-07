@@ -2,6 +2,7 @@
 
 # compiled output
 /dist # check this in so heroku picks the build and serves the files
+/dist/FileHub/
 /tmp
 /out-tsc
 
@@ -37,3 +38,4 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
