@@ -7,18 +7,23 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { FaqsComponent } from './faqs/faqs.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { MessagesComponent } from './messages/messages.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-  declarations: [
+  declarations: [ // app modules
     AppComponent,
     DashboardComponent,
     FaqsComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    MessagesComponent
   ],
-  imports: [
+  imports: [ // third party modules, including angulars
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    // for http requests with rxjs: https://stackoverflow.com/questions/47369850/property-get-does-not-exist-on-type-httpclientmodule
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { FileRecord } from '../model/imageFile';
+import { FileRecord } from '../model/FileRecord';
+import { FileRecordService } from './file-record.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,25 +10,32 @@ import { FileRecord } from '../model/imageFile';
 })
 export class DashboardComponent implements OnInit {
 
-  APIEndpoint: string = environment.APIEndpoint;
-  fileUrl = `${this.APIEndpoint}/api/files`;
+  // declaring public/private bc Angular only binds to public properties
+  public APIEndpoint: string = environment.APIEndpoint;
+  public fileUrl = `${this.APIEndpoint}/api/files`;
 
-  filesToUpload: Array<File>;
-  images: Array<FileRecord>;
-  currentImageInModal: FileRecord;
-  showModal: boolean;
-
-
-  constructor() {
+  public filesToUpload: Array<File>;
+  public images: Array<FileRecord>;
+  public currentImageInModal: FileRecord;
+  public showModal: boolean;
+  public FILE_RECORDS: FileRecord[];
+debugger;
+  // inject dependency (DI): https://angular.io/tutorial/toh-pt4
+  // will make fileRecordService accessible with this keyword
+  // constructors is where dependecies should be injected
+  constructor(private fileRecordService: FileRecordService) {
     this.filesToUpload = [];
     this.images = this.getImageList();
     this.showModal = false;
   }
 
+  // get all required data from the web
   ngOnInit() {
+    this.getFileRecords();
   }
 
-  // =============== public mehtods =================================
+  // =============== public methods =================================
+  // only public methods are accessible from the view .html, by default methods are public
   public upload(): void {
     this.makeFileRequest(this.fileUrl, [], this.filesToUpload).then((result) => {
       console.log(result);
@@ -46,6 +54,11 @@ export class DashboardComponent implements OnInit {
   }
 
   // ====================== private methods ========================
+  private getFileRecords(): void {
+    this.fileRecordService.getFileRecords()
+      .subscribe(fileRecords => this.FILE_RECORDS = fileRecords);
+  }
+
   private makeFileRequest(fileUrl: string, params: Array<string>, files: Array<File> ) {
     return new Promise((resolve, reject) => {
       const formData: any = new FormData();
