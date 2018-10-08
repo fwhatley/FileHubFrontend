@@ -6,15 +6,4 @@
       <a routerLink="/faqs" class="nav-item nav-link">FAQs</a>
     </div>
   </div>
-  <div>
-    <ul *ngIf="enableDevTools">
-      <li>dev app url: <a target="_blank" href="{{devAppUrl}}">{{devAppUrl}}</a></li>
-      <li>prod app url: <a target="_blank" href="{{prodAppUrl}}">{{prodAppUrl}}</a></li>
-      <li>dev api url: <a target="_blank" href="{{devApiUrl}}">{{devApiUrl}}</a></li>
-      <li>prod api url: <a target="_blank" href="{{prodApiUrl}}">{{prodApiUrl}}</a></li>
-    </ul>
-    <div *ngIf="enableDevTools">
-      <app-messages></app-messages>
-    </div>
-  </div>
 </nav>
