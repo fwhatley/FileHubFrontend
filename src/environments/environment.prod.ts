@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  APIEndpoint: 'https://file-hub-backend.herokuapp.com'
+  APIEndpoint: 'http://23.239.14.119'
 };
