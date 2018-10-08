@@ -1,27 +1,27 @@
-<div>
-    <h5>Select an image to upload</h5>
-    <input type="file" class="btn btn-light" (change)="fileChangeEvent($event)" placeholder="Upload file..."/>
-    <button type="button" class="btn btn-primary" (click)="upload()">Upload</button>
-  </div>
-  
-  <div>
-    <ul *ngFor="let fr of FILE_RECORDS">
-      <li>{{fr.name}}</li>
-    </ul>
+  <div class="row">
+    <div class="col-6">
+        <h5>Select an image to upload</h5>
+        <input type="file" class="btn btn-light" (change)="fileChangeEvent($event)" placeholder="Upload file..."/>
+        <button type="button" class="btn btn-primary" (click)="upload()" >Upload</button>
+    </div>
+    <div class="col-6">
+        <app-dev-tools></app-dev-tools>
+    </div>
+
   </div>
 
-  <div class="images-section">
-    <h5>Images of Failed Automated Tests</h5>
-    <div class="image-wrap" *ngFor="let img of images" (click)="toggleModal(img)">
-      <img  id="myImg" src="{{img.url}}" alt="{{img.name}}">
-      <div class="image-date">{{img.createdUtc | date:'short'}}</div>
-      <p>{{img.name}}</p>
+  <h5>Screenshots of Failed Automated Tests</h5>
+  <div class="row images-section">
+    <div class="image-wrap" *ngFor="let fr of fileRecords" (click)="toggleModal(fr)">
+      <img  id="myImg" src="{{fr.url}}" alt="{{fr.name}}">
+      <div class="image-date">{{fr.createdUtc | date:'short'}}</div>
+      <p>{{fr.name}}</p>
     </div>
   </div>
 
   <!-- modal to display -->
   <div id="myModal" class="modal" [style.display]="showModal? 'block':'none'" *ngIf="currentImageInModal">
-      <span class="close" (click)="toggleModal(img)">&times;</span>
+      <span class="close" (click)="toggleModal(fr)">&times;</span>
       <img class="modal-content" id="img01" src="{{currentImageInModal.url}}">
       <div id="imageName">{{currentImageInModal.name}} | {{currentImageInModal.createdUtc | date:'short'}}</div>
   </div>

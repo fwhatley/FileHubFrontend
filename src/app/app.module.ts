@@ -9,6 +9,7 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { MessagesComponent } from './messages/messages.component';
 import { HttpClientModule } from '@angular/common/http';
+import { DevToolsComponent } from './dev-tools/dev-tools.component';
 
 @NgModule({
   declarations: [ // app modules
@@ -17,7 +18,8 @@ import { HttpClientModule } from '@angular/common/http';
     FaqsComponent,
     HeaderComponent,
     FooterComponent,
-    MessagesComponent
+    MessagesComponent,
+    DevToolsComponent
   ],
   imports: [ // third party modules, including angulars
     BrowserModule,

@@ -12,20 +12,18 @@ export class DashboardComponent implements OnInit {
 
   // declaring public/private bc Angular only binds to public properties
   public APIEndpoint: string = environment.APIEndpoint;
-  public fileUrl = `${this.APIEndpoint}/api/files`;
+  public baseFileRecordsUrl = `${this.APIEndpoint}/api/files`; // TODO: move this into a service to
 
   public filesToUpload: Array<File>;
-  public images: Array<FileRecord>;
   public currentImageInModal: FileRecord;
   public showModal: boolean;
-  public FILE_RECORDS: FileRecord[];
-debugger;
+  public fileRecords: FileRecord[];
+
   // inject dependency (DI): https://angular.io/tutorial/toh-pt4
   // will make fileRecordService accessible with this keyword
   // constructors is where dependecies should be injected
   constructor(private fileRecordService: FileRecordService) {
     this.filesToUpload = [];
-    this.images = this.getImageList();
     this.showModal = false;
   }
 
@@ -36,8 +34,9 @@ debugger;
 
   // =============== public methods =================================
   // only public methods are accessible from the view .html, by default methods are public
+  // TODO: move internal dependent methods into a service
   public upload(): void {
-    this.makeFileRequest(this.fileUrl, [], this.filesToUpload).then((result) => {
+    this.makeFileRequest(this.baseFileRecordsUrl, [], this.filesToUpload).then((result) => {
       console.log(result);
     }, (error) => {
       console.error(error);
@@ -56,15 +55,17 @@ debugger;
   // ====================== private methods ========================
   private getFileRecords(): void {
     this.fileRecordService.getFileRecords()
-      .subscribe(fileRecords => this.FILE_RECORDS = fileRecords);
+      .subscribe(frs => {
+        this.fileRecords = frs;
+      });
   }
 
-  private makeFileRequest(fileUrl: string, params: Array<string>, files: Array<File> ) {
+  private makeFileRequest(baseFileRecordsUrl: string, params: Array<string>, files: Array<File> ) {
     return new Promise((resolve, reject) => {
       const formData: any = new FormData();
       const xhr = new XMLHttpRequest();
       for (let i = 0; i < files.length; i++) {
-        formData.append('fileToUpload', files[i], files[i].name);
+        formData.append('file', files[i], files[i].name);
       }
 
       xhr.onreadystatechange = function () {
@@ -77,7 +78,7 @@ debugger;
         }
       };
 
-      xhr.open('POST', fileUrl, true);
+      xhr.open('POST', baseFileRecordsUrl, true);
       xhr.send(formData);
 
     });
@@ -88,7 +89,7 @@ debugger;
   }
 
   private getImageList(): Array<FileRecord> {
-    const imageUrl = "https://via.placeholder.com/350x150";
+    const imageUrl = "http://localhost:5000/api/files/downloadFile/af27a15e-22d8-493d-b568-58c8b7695895";
     const numberOfImages = 20;
     const images: Array<FileRecord> = [];
 

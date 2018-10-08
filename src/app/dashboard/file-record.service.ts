@@ -4,15 +4,16 @@ import { FileRecord } from '../model/FileRecord';
 import { Observable, of } from 'rxjs';
 import { MessageService } from '../messages/message.service';
 import { HttpClient } from '@angular/common/http';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FileRecordService {
 
-  private baseFileRecordsUrl = 'http://localhost:5000/api/files';
-  private downloadUrl = `${this.baseFileRecordsUrl}/downloadsFile`;
+  public APIEndpoint: string = environment.APIEndpoint;
+  public baseFileRecordsUrl = `${this.APIEndpoint}/api/files`;
 
   constructor(private messageService: MessageService,
               private http: HttpClient) { }
@@ -41,18 +42,15 @@ export class FileRecordService {
       return of(result as T);
     };
   }
+
   // =============== public methods =================================
   public getFileRecords(): Observable<FileRecord[]> {
 
     return this.http.get<FileRecord[]>(this.baseFileRecordsUrl)
       .pipe( // tap allows you to see the data, not modify
-        tap(fileRecords => this.log(`fectched file records`)), // ${JSON.stringify(fileRecords)} // to print the request contents
+        tap(fileRecords => this.log(`fectched: ${fileRecords.length} file records`)), // ${JSON.stringify(fileRecords)} // to print the request contents
         catchError(this.handleError('getFileRecords()', []))
     );
-
   }
-
-
-
 
 }
