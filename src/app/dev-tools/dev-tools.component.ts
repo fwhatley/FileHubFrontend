@@ -9,7 +9,6 @@ import { DevTool } from '../model/DevTools';
 export class DevToolsComponent implements OnInit {
 
   public enableDevTools = false;
-  debugger;
   public devTool: DevTool;
 
   public constructor() { }
