@@ -12,8 +12,8 @@ import { environment } from '../../environments/environment';
 })
 export class FileRecordService {
 
-  public APIEndpoint: string = environment.APIEndpoint;
-  public baseFileRecordsUrl = `${this.APIEndpoint}/api/files`;
+  public FileHubApiBaseUrl: string = environment.FileHubApiBaseUrl;
+  public baseFileRecordsUrl = `${this.FileHubApiBaseUrl}/api/files`;
 
   constructor(private messageService: MessageService,
               private http: HttpClient) { }
@@ -48,8 +48,9 @@ export class FileRecordService {
 
     return this.http.get<FileRecord[]>(this.baseFileRecordsUrl)
       .pipe( // tap allows you to see the data, not modify
-        tap(fileRecords => this.log(`fectched: ${fileRecords.length} file records`)), // ${JSON.stringify(fileRecords)} // to print the request contents
+        tap(fileRecords => this.log(`fectched: ${fileRecords.length} file records`)),
         catchError(this.handleError('getFileRecords()', []))
+        // ${JSON.stringify(fileRecords)} // to print the request contents
     );
   }
 
