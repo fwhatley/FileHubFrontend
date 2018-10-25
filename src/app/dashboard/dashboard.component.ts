@@ -11,8 +11,8 @@ import { FileRecordService } from './file-record.service';
 export class DashboardComponent implements OnInit {
 
   // declaring public/private bc Angular only binds to public properties
-  public APIEndpoint: string = environment.APIEndpoint;
-  public baseFileRecordsUrl = `${this.APIEndpoint}/api/files`; // TODO: move this into a service to
+  public FileHubApiBaseUrl: string = environment.FileHubApiBaseUrl;
+  public baseFileRecordsUrl = `${this.FileHubApiBaseUrl}/api/files`; // TODO: move this into a service to
 
   public filesToUpload: Array<File>;
   public currentImageInModal: FileRecord;
@@ -83,26 +83,5 @@ export class DashboardComponent implements OnInit {
 
     });
   }
-
-  private randomDate(start, end): Date {
-    return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
-  }
-
-  private getImageList(): Array<FileRecord> {
-    const imageUrl = "http://localhost:5000/api/files/downloadFile/af27a15e-22d8-493d-b568-58c8b7695895";
-    const numberOfImages = 20;
-    const images: Array<FileRecord> = [];
-
-    for ( let i = 0; i < numberOfImages; i++ ) {
-      const image = new FileRecord();
-      image.url = imageUrl;
-      image.name = `This is a name - image: ${i}`;
-      image.createdUtc = this.randomDate(new Date(2012, 0, 1), new Date());
-      images.push(image);
-    }
-
-    return images;
-  }
-
 
 }
