@@ -12,7 +12,7 @@
 # Second Time
 # - repeat step 4
 
-
+echo "INFO - =========== DEPLOYING UI APPLICATION ================"
 echo "INFO - deleting old app: FileHubFrontend"
 rm -rf /var/www/FileHub
 
@@ -30,3 +30,6 @@ ng build --prod
 
 echo "INFO - copying new app to be served: FileHubFrontend"
 sudo cp -a ~/FileHubFrontend/dist/FileHub/ /var/www/
+
+echo "INFO - =========== DONE DEPLOYING UI APPLICATION ================"
+
