@@ -2,10 +2,16 @@
 #set -x #echo on
 
 # INSTRUCTIONS how to auto deploy UI
+#
+# First Time Only
 # 1. clone UI project into home directory ~/
+# 2. run 'npm install'. Otherwise you will get this error: Could not find module "@angular-devkit/build-angular" 
 # 2. place this script in ~/
 # 3. run chmod 777 publish_ui_script.sh
 # 4. run ./publish_ui_script.sh
+#
+# Second Time
+# - repeat step 4
 
 
 echo "INFO - deleting old app: FileHubFrontend"
