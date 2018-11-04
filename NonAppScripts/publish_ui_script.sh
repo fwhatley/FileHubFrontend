@@ -5,7 +5,6 @@
 #
 # First Time Only
 # 1. clone UI project into home directory ~/
-# 2. run 'npm install'. Otherwise you will get this error: Could not find module "@angular-devkit/build-angular" 
 # 2. place this script in ~/
 # 3. run chmod 777 publish_ui_script.sh
 # 4. run ./publish_ui_script.sh
@@ -22,6 +21,9 @@ cd ~/FileHubFrontend
 
 echo "INFO - pulling latest changes"
 git pull
+
+echo "INFO - installing with npm. Otherwise you will get this error: Could not find module @angular-devkit/build-angular"
+npm install
 
 echo "INFO - publishing app: FileHubFrontend"
 ng build --prod
