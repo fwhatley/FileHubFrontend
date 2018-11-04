@@ -2,20 +2,19 @@
     <div class="col-6">
         <h5>Select an image to upload</h5>
         <input type="file" class="btn btn-light" (change)="fileChangeEvent($event)" placeholder="Upload file..."/>
-        <button type="button" class="btn btn-primary" (click)="upload()" >Upload</button>
+        <button type="button" class="btn btn-primary" (click)="clickUpload()" >Upload</button>
     </div>
     <div class="col-6">
         <app-dev-tools></app-dev-tools>
     </div>
-
   </div>
 
-  <h5>Screenshots of Failed Automated Tests</h5>
-  <div class="row images-section">
-    <div class="image-wrap" *ngFor="let fr of fileRecords" (click)="toggleModal(fr)">
-      <img  id="myImg" src="{{fr.url}}" alt="{{fr.name}}">
+  <h5 class="row-top-padding">Screenshots of Failed Automated Tests</h5>
+  <div class="row row-top-padding no-gutters">
+    <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 image-wrap" *ngFor="let fr of fileRecords" (click)="toggleModal(fr)">
+      <img src="{{fr.url}}" alt="{{fr.name}}">
       <div class="image-date">{{fr.createdUtc | date:'short'}}</div>
-      <p>{{fr.name}}</p>
+      <p class="text-center">{{fr.name}}</p>
     </div>
   </div>
 

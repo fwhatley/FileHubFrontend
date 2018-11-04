@@ -1,38 +1,28 @@
+.row-top-padding {
+    padding-top: 30px; 
+}
+
 .image-wrap {
-    margin: 10px;
-    float: left;
-    position: relative;
-    text-align: center;
-    text-overflow: ellipsis;
-    width: 300px;
-}
-
-.image-wrap img {
-    width: 300px;
-    height: 180px;
-}
-
-.image-wrap p {
     text-overflow: ellipsis; /* https://www.w3schools.com/cssref/tryit.asp?filename=trycss3_text-overflow */
-    width: 300px;
     white-space: nowrap; 
     overflow: hidden;
 }
 
-.images-section {
-    padding-top: 30px;    
+.image-wrap img {
+    height: 180px;
+    width: 100%;
 }
 
-.image-date {
+.image-wrap .image-date {
     position: absolute;
-    bottom: 45px;
-    left: 16px;
+    bottom: 43px;
+    left: 3px;
     font-size: 0.8em;
     font-weight: bold;
     color: white;
 }
 
-/* modal stuff from here below - https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_modal_img*/
+/****** modal stuff from here below ***** - https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_modal_img*/
 #myImg {
     border-radius: 5px;
     cursor: pointer;
