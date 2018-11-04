@@ -29,7 +29,10 @@ export class DashboardComponent implements OnInit {
 
   // get all required data from the web
   ngOnInit() {
-    this.getFileRecords();
+    this.fileRecordService.getFileRecords()
+      .subscribe(frs => {
+        this.fileRecords = frs;
+      });
   }
 
   // =============== public methods =================================
@@ -50,14 +53,6 @@ export class DashboardComponent implements OnInit {
   public toggleModal(image: FileRecord): void {
     this.currentImageInModal = image; // closing modal doesn't pass an image therefore img will be set to undefined
     this.showModal = !this.showModal;
-  }
-
-  // ====================== private methods ========================
-  private getFileRecords(): void {
-    this.fileRecordService.getFileRecords()
-      .subscribe(frs => {
-        this.fileRecords = frs;
-      });
   }
 
 }
