@@ -43,15 +43,68 @@ export class FileRecordService {
     };
   }
 
+  private createFileRecordFromJson(jsonString: string): FileRecord {
+    const json = JSON.parse(jsonString);
+    const fileRecord = new FileRecord();
+    fileRecord.id = json.id;
+    fileRecord.name = json.name;
+    fileRecord.description = json.description;
+    fileRecord.url = json.url;
+    fileRecord.tags = json.tags;
+    fileRecord.createdUtc = json.createdUtc;
+    fileRecord.updatedUtc = json.updatedUtc;
+    fileRecord.deletedUtc = json.deletedUtc;
+
+    return fileRecord;
+  }
+
   // =============== public methods =================================
   public getFileRecords(): Observable<FileRecord[]> {
-
     return this.http.get<FileRecord[]>(this.baseFileRecordsUrl)
       .pipe( // tap allows you to see the data, not modify
         tap(fileRecords => this.log(`fectched: ${fileRecords.length} file records`)),
         catchError(this.handleError('getFileRecords()', []))
         // ${JSON.stringify(fileRecords)} // to print the request contents
     );
+  }
+
+  public uploadFile(filesToUpload): Promise<FileRecord> {
+    return new Promise((resolve, reject) => {
+      const formData: any = new FormData();
+      const xhr = new XMLHttpRequest();
+
+      // actually only one file should exist. Iterating just to avoid index out of bounds errors
+      for (let i = 0; i < filesToUpload.length; i++) {
+        formData.append('file', filesToUpload[i], filesToUpload[i].name);
+      }
+
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+
+            // TODO: add a mapper to simplify this crazy mapping
+            const json = JSON.parse(xhr.response);
+            const fileRecord = new FileRecord();
+
+            fileRecord.id = json.id;
+            fileRecord.name = json.name;
+            fileRecord.description = json.description;
+            fileRecord.url = json.url;
+            fileRecord.tags = json.tags;
+            fileRecord.createdUtc = json.createdUtc;
+            fileRecord.updatedUtc = json.updatedUtc;
+            fileRecord.deletedUtc = json.deletedUtc;
+            resolve(fileRecord);
+          } else {
+            reject(xhr.response);
+          }
+        }
+      };
+
+      xhr.open('POST', this.baseFileRecordsUrl, true);
+      xhr.send(formData);
+
+    });
   }
 
 }

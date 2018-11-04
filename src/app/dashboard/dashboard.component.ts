@@ -34,13 +34,13 @@ export class DashboardComponent implements OnInit {
 
   // =============== public methods =================================
   // only public methods are accessible from the view .html, by default methods are public
-  // TODO: move internal dependent methods into a service
-  public upload(): void {
-    this.makeFileRequest(this.baseFileRecordsUrl, [], this.filesToUpload).then((result) => {
-      console.log(result);
+  public clickUpload(): void {
+    this.fileRecordService.uploadFile(this.filesToUpload).then((response) => {
+      this.fileRecords.push(response);
     }, (error) => {
       console.error(error);
     });
+
   }
 
   public fileChangeEvent(fileInput: any): void {
@@ -58,30 +58,6 @@ export class DashboardComponent implements OnInit {
       .subscribe(frs => {
         this.fileRecords = frs;
       });
-  }
-
-  private makeFileRequest(baseFileRecordsUrl: string, params: Array<string>, files: Array<File> ) {
-    return new Promise((resolve, reject) => {
-      const formData: any = new FormData();
-      const xhr = new XMLHttpRequest();
-      for (let i = 0; i < files.length; i++) {
-        formData.append('file', files[i], files[i].name);
-      }
-
-      xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4) {
-          if (xhr.status === 200) {
-            resolve(JSON.parse(xhr.response));
-          } else {
-            reject(xhr.response);
-          }
-        }
-      };
-
-      xhr.open('POST', baseFileRecordsUrl, true);
-      xhr.send(formData);
-
-    });
   }
 
 }
