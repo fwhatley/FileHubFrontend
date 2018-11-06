@@ -26,7 +26,7 @@ echo "INFO - installing with npm. Otherwise you will get this error: Could not f
 npm install
 
 echo "INFO - publishing app: FileHubFrontend"
-ng build --prod
+npm run build
 
 echo "INFO - copying new app to be served: FileHubFrontend"
 sudo cp -a ~/FileHubFrontend/dist/FileHub/ /var/www/
