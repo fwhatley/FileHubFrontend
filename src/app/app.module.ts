@@ -10,6 +10,7 @@ import { FooterComponent } from './footer/footer.component';
 import { MessagesComponent } from './messages/messages.component';
 import { HttpClientModule } from '@angular/common/http';
 import { DevToolsComponent } from './dev-tools/dev-tools.component';
+import { FileDetailsComponent } from './file-details/file-details.component';
 
 @NgModule({
   declarations: [ // app modules
@@ -19,7 +20,8 @@ import { DevToolsComponent } from './dev-tools/dev-tools.component';
     HeaderComponent,
     FooterComponent,
     MessagesComponent,
-    DevToolsComponent
+    DevToolsComponent,
+    FileDetailsComponent
   ],
   imports: [ // third party modules, including angulars
     BrowserModule,

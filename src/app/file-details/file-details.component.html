@@ -1,0 +1,19 @@
+<div class="row" *ngIf="fileRecord">
+  <div class="col">
+      <h2>{{fileRecord.name}}</h2>
+      <p>{{fileRecord.updatedUtc}}</p>
+      <p>{{fileRecord.description}}</p>
+  </div>
+  <div class="col text-right">
+      <button type="button" (click)="goBack()" class="btn btn-primary ">Go Back</button>
+  </div>
+
+</div>
+
+<div *ngIf="fileRecord">
+  <img class="img-fluid img-thumbnail" src="{{fileRecord.url}}" alt="{{fileRecord.name}}">
+</div>
+
+<div class="hero-detail-footer">
+  <button type="button"  (click)="goBack()"  class="btn btn-primary">Go Back</button>
+</div>
