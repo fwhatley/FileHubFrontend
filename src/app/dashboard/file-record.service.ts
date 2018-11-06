@@ -59,11 +59,19 @@ export class FileRecordService {
   }
 
   // =============== public methods =================================
+  public getFileRecord(id: string): Observable<FileRecord> {
+    const url = `${this.baseFileRecordsUrl}/${id}`;
+    return this.http.get<FileRecord>(url).pipe(
+        tap(fileRecord => this.log(`fectched: ${fileRecord.id}`)),
+        catchError(this.handleError<FileRecord>(`getFileRecord id=${id}`))
+    );
+  }
+
   public getFileRecords(): Observable<FileRecord[]> {
     return this.http.get<FileRecord[]>(this.baseFileRecordsUrl)
       .pipe( // tap allows you to see the data, not modify
         tap(fileRecords => this.log(`fectched: ${fileRecords.length} file records`)),
-        catchError(this.handleError('getFileRecords()', []))
+        catchError(this.handleError('getFileRecords', []))
         // ${JSON.stringify(fileRecords)} // to print the request contents
     );
   }
