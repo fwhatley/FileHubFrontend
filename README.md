@@ -3,6 +3,8 @@ Application that stores any file and data about them.
 
 One use case of this is as a Selenium reporter which helps QA Engineers see pictures of failed tests to find bugs faster. Uses newest technologies: Angular 6, .Net Core 2.1, and Postgres
 
+Backend project that goes along with this can be found at [https://github.com/fwhatley/FileHubBackendV2](https://github.com/fwhatley/FileHubBackendV2).
+
 ## Development frontend server
 Required software
 - Node
