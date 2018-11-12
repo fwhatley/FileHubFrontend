@@ -8,7 +8,7 @@ Backend project that goes along with this can be found at [https://github.com/fw
 ## Development frontend server
 Required software
 - Node
-- Angular CLI](https://github.com/angular/angular-cli) version 6.1.4.
+- [Angular CLI](https://github.com/angular/angular-cli) version 6.1.4.
 
 Run `npm install`
 
