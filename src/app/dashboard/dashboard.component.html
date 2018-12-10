@@ -2,7 +2,7 @@
     <div class="col">
         <h5>Select an image to upload</h5>
         <input type="file" class="btn btn-light" (change)="fileChangeEvent($event)" placeholder="Upload file..."/>
-        <button type="button" class="btn btn-primary" (click)="clickUpload()" >Upload</button>
+        <button ngDisbled="uploadButtonDisableState" type="button" class="btn btn-primary" (click)="clickUpload()" >Upload</button>
     </div>
     <div class="col text-right">
         <!-- amke popover work. I installed jquery and popover js<div class="dropdown">

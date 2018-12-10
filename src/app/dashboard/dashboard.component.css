@@ -17,10 +17,10 @@
 .image-wrap .image-date {
     position: absolute;
     bottom: 43px;
-    left: 3px;
+    right: 20px;
     font-size: 0.8em;
     font-weight: bold;
-    color: white;
+    color: gray;
 }
 
 /****** modal stuff from here below ***** - https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_modal_img*/

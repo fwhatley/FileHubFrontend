@@ -6,21 +6,22 @@ import { MessageService } from '../messages/message.service';
 import { HttpClient } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
+import { FhFile } from '../model/FhFile';
 
 @Injectable({
   providedIn: 'root'
 })
-export class FileRecordService {
+export class FileService {
 
   public FileHubApiBaseUrl: string = environment.FileHubApiBaseUrl;
-  public baseFileRecordsUrl = `${this.FileHubApiBaseUrl}/api/fileRecords`;
+  public baseFilesUrl = `${this.FileHubApiBaseUrl}/api/files`;
 
   constructor(private messageService: MessageService,
               private http: HttpClient) { }
 
   // ====================== private methods ========================
   private log(message: string) {
-    this.messageService.add(`FileRecordService: ${message}`);
+    this.messageService.add(`FileService: ${message}`);
   }
 
   /**
@@ -44,31 +45,36 @@ export class FileRecordService {
   }
 
   // =============== public methods =================================
-  public getFileRecord(id: string): Observable<FileRecord> {
-    const url = `${this.baseFileRecordsUrl}/${id}`;
-    return this.http.get<FileRecord>(url)
-      .pipe(
-        tap(fileRecord => this.log(`fectched: ${fileRecord.id}`)),
-        catchError(this.handleError<FileRecord>(`getFileRecord id=${id}`))
-    );
-  }
+  public uploadFile(fileFormData: FormData): Promise<FhFile> {
+    return new Promise((resolve, reject) => {
 
-  public getFileRecords(): Observable<FileRecord[]> {
-    return this.http.get<FileRecord[]>(this.baseFileRecordsUrl)
-      .pipe( // tap allows you to see the data, not modify
-        tap(fileRecords => this.log(`fectched: ${fileRecords.length} file records`)),
-        catchError(this.handleError('getFileRecords', []))
-        // ${JSON.stringify(fileRecords)} // to print the request contents
-    );
-  }
+      const xhr = new XMLHttpRequest();
 
-  public createFileRecord(fileRecord: FileRecord): Observable<FileRecord> {
-    return this.http.post<FileRecord>(this.baseFileRecordsUrl, fileRecord)
-      .pipe(
-        tap(fr => this.log(`fectched: ${fr.id}`)),
-        catchError(this.handleError<FileRecord>(`getFileRecord object=${JSON.stringify(fileRecord)}`))
-    );
-  }
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
 
+            // TODO: add a mapper to simplify this crazy mapping
+            const json = JSON.parse(xhr.response);
+            const fhFile = new FhFile();
+
+            fhFile.id = json.id;
+            fhFile.name = json.name;
+            fhFile.fileRecordId = json.fileRecordId;
+            fhFile.createdUtc = json.createdUtc;
+            fhFile.updatedUtc = json.updatedUtc;
+            fhFile.deletedUtc = json.deletedUtc;
+            resolve(fhFile);
+          } else {
+            reject(xhr.response);
+          }
+        }
+      };
+
+      xhr.open('POST', this.baseFilesUrl, true);
+      xhr.send(fileFormData);
+
+    });
+  }
 
 }
