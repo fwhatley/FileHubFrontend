@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { MOCK_FILE_RECORDS } from './mock-file-records';
-import { FileRecord } from '../model/FileRecord';
+import { FileRecord } from '../models/FileRecord';
 import { Observable, of } from 'rxjs';
-import { MessageService } from '../messages/message.service';
+import { MessageService } from '../views/messages/message.service';
 import { HttpClient } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DevTool } from '../model/DevTools';
+import { DevTool } from '../../../models/DevTools';
 
 @Component({
   selector: 'app-dev-tools',

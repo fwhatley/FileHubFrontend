@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { FileRecordService } from '../dashboard/file-record.service';
-import { FileRecord } from '../model/FileRecord';
+import { FileRecordService } from '../../../serivces/file.record.service';
+import { FileRecord } from '../../../models/FileRecord';
 
 @Component({
   selector: 'app-file-details',
-  templateUrl: './file-details.component.html',
-  styleUrls: ['./file-details.component.css']
+  templateUrl: './file.details.component.html',
+  styleUrls: ['./file.details.component.css']
 })
 export class FileDetailsComponent implements OnInit {
 

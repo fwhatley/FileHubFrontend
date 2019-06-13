@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { environment } from '../../environments/environment';
-import { FileRecord } from '../model/FileRecord';
-import { FileRecordService } from './file-record.service';
-import { FileService } from './file-service';
+import { environment } from '../../../environments/environment';
+import { FileRecord } from '../../models/FileRecord';
+import {FileRecordService} from '../../serivces/file.record.service';
+import {FileService} from '../../serivces/file.service';
 
 @Component({
   selector: 'app-dashboard',

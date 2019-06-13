@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { FaqsComponent } from './faqs/faqs.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { FileDetailsComponent } from './file-details/file-details.component';
+import { FaqsComponent } from './views/faqs/faqs.component';
+import { DashboardComponent } from './views/dashboard/dashboard.component';
+import {FileDetailsComponent} from './views/dashboard/file.details/file.details.component';
 
 const routes: Routes = [
+
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'faqs', component: FaqsComponent },
