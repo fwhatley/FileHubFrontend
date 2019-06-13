@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FileRecord } from '../models/FileRecord';
 import { Observable, of } from 'rxjs';
-import { MessageService } from '../views/messages/message.service';
+import { MessageService } from './message.service';
 import { HttpClient } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';

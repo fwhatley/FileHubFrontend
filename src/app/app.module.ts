@@ -6,7 +6,7 @@ import { DashboardComponent } from './views/dashboard/dashboard.component';
 import { FaqsComponent } from './views/faqs/faqs.component';
 import { HeaderComponent } from './views/header/header.component';
 import { FooterComponent } from './views/footer/footer.component';
-import { MessagesComponent } from './views/messages/messages.component';
+import { MessagesComponent } from './views/dashboard/messages/messages.component';
 import { HttpClientModule } from '@angular/common/http';
 import { DevToolsComponent } from './views/dashboard/dev-tools/dev-tools.component';
 import {FileDetailsComponent} from './views/dashboard/file.details/file.details.component';
