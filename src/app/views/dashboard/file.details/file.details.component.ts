@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { FileRecordService } from '../../../serivces/file.record.service';
+import { FileRecordService } from '../../../services/file.record.service';
 import { FileRecord } from '../../../models/FileRecord';
 
 @Component({

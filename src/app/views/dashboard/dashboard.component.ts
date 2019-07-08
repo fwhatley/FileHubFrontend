@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { FileRecord } from '../../models/FileRecord';
-import {FileRecordService} from '../../serivces/file.record.service';
-import {FileService} from '../../serivces/file.service';
+import {FileRecordService} from '../../services/file.record.service';
+import {FileService} from '../../services/file.service';
+import {ApiErrorModel} from '../../models/api.error.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -33,7 +34,10 @@ export class DashboardComponent implements OnInit {
     this.fileRecordService.getFileRecords()
       .subscribe(frs => {
         this.fileRecords = frs;
-      });
+      },
+        (error: ApiErrorModel) => {
+        console.log(error);
+    });
   }
 
   // =============== public methods =================================

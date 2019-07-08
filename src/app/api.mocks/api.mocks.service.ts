@@ -1,11 +1,18 @@
 import {Injectable} from '@angular/core';
-import {MocksModel} from '../api.mocks/mocks.model';
+import {MocksModel} from './mocks.model';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class ApiMocksService {
 
   public mockModel: MocksModel = new MocksModel();
 
+  /**
+   * returns the mock payload if mock is set and found. Otherwise, it returns false.
+   * @param path
+   * @param payload
+   */
   public activeMockFor(path: string, payload: any): any {
     if (this.activeMock && this.mockModel &&
       this.mockModel.mocks.hasOwnProperty(this.activeMock) &&

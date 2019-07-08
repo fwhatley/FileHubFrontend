@@ -5,6 +5,8 @@ import { MessageService } from './message.service';
 import { HttpClient } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
+import {ApiCallService} from '../api.module/api.call.service';
+import {ApiErrorModel} from '../models/api.error.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +17,8 @@ export class FileRecordService {
   public baseFileRecordsUrl = `${this.FileHubApiBaseUrl}/api/fileRecords`;
 
   constructor(private messageService: MessageService,
-              private http: HttpClient) { }
+              private http: HttpClient,
+              private apiCallService: ApiCallService) { }
 
   // ====================== private methods ========================
   private log(message: string) {
@@ -52,13 +55,27 @@ export class FileRecordService {
     );
   }
 
+  // public getFileRecords(): Observable<FileRecord[]> {
+  //   return this.http.get<FileRecord[]>(this.baseFileRecordsUrl)
+  //     .pipe( // tap allows you to see the data, not modify
+  //       tap(fileRecords => this.log(`fectched: ${fileRecords.length} file records`)),
+  //       catchError(this.handleError('getFileRecords', []))
+  //       // ${JSON.stringify(fileRecords)} // to print the request contents
+  //   );
+  // }
   public getFileRecords(): Observable<FileRecord[]> {
-    return this.http.get<FileRecord[]>(this.baseFileRecordsUrl)
-      .pipe( // tap allows you to see the data, not modify
-        tap(fileRecords => this.log(`fectched: ${fileRecords.length} file records`)),
-        catchError(this.handleError('getFileRecords', []))
-        // ${JSON.stringify(fileRecords)} // to print the request contents
-    );
+
+    return new Observable(obs => {
+      this.apiCallService.callService('getFileRecords').subscribe((respObj) => {
+        if (respObj && respObj.hasOwnProperty('code') && respObj.hasOwnProperty('message')) {
+          obs.error(new ApiErrorModel(respObj));
+        } else {
+          obs.next(respObj);
+        }
+      }, (error) => {
+        obs.error(new ApiErrorModel(error.error));
+      });
+    });
   }
 
   public createFileRecord(fileRecord: FileRecord): Observable<FileRecord> {

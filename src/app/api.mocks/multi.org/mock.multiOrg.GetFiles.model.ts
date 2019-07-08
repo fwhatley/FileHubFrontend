@@ -11,7 +11,7 @@ export class MockMultiOrgGetFilesModel extends Mock {
         {
           "id": "50e6215d-b5c6-4896-987c-f30f3678f608",
           "fileRecordId": "10e6215d-b5c6-4896-987c-f30f3678f608",
-          "name": "File name 1.jpg",
+          "name": "MULTI ORG - File name 1.jpg",
           "createdUtc": "2016-06-22T00:00:00+00:00",
           "updatedUtc": "2016-06-22T00:00:00+00:00",
           "deletedUtc": "9999-12-31T00:00:00+00:00"
@@ -19,7 +19,7 @@ export class MockMultiOrgGetFilesModel extends Mock {
         {
           "id": "60cd8c99-4036-403d-bf84-cf8400f67836",
           "fileRecordId": "20cd8c99-4036-403d-bf84-cf8400f67836",
-          "name": "File name 2.jpg",
+          "name": "MULTI ORG - File name 2.jpg",
           "createdUtc": "2016-06-22T00:00:00+00:00",
           "updatedUtc": "2016-06-22T00:00:00+00:00",
           "deletedUtc": "9999-12-31T00:00:00+00:00"
@@ -27,7 +27,7 @@ export class MockMultiOrgGetFilesModel extends Mock {
         {
           "id": "70333df6-90a4-4fda-8dd3-9485d27cee36",
           "fileRecordId": "30333df6-90a4-4fda-8dd3-9485d27cee36",
-          "name": "File name 3.jpg",
+          "name": "MULTI ORG - File name 3.jpg",
           "createdUtc": "2016-06-22T00:00:00+00:00",
           "updatedUtc": "2016-06-22T00:00:00+00:00",
           "deletedUtc": "9999-12-31T00:00:00+00:00"
