@@ -13,7 +13,7 @@ import {ApiErrorModel} from '../models/api.error.model';
 })
 export class FileRecordService {
 
-  public FileHubApiBaseUrl: string = environment.FileHubApiBaseUrl;
+  private readonly FileHubApiBaseUrl: string = environment.FileHubApiBaseUrl;
   public baseFileRecordsUrl = `${this.FileHubApiBaseUrl}/api/fileRecords`;
 
   constructor(private messageService: MessageService,
@@ -47,32 +47,28 @@ export class FileRecordService {
 
   // =============== public methods =================================
   public getFileRecord(id: string): Observable<FileRecord> {
-    const url = `${this.baseFileRecordsUrl}/${id}`;
-    return this.http.get<FileRecord>(url)
-      .pipe(
-        tap(fileRecord => this.log(`fectched: ${fileRecord.id}`)),
-        catchError(this.handleError<FileRecord>(`getFileRecord id=${id}`))
-    );
-  }
-
-  // public getFileRecords(): Observable<FileRecord[]> {
-  //   return this.http.get<FileRecord[]>(this.baseFileRecordsUrl)
-  //     .pipe( // tap allows you to see the data, not modify
-  //       tap(fileRecords => this.log(`fectched: ${fileRecords.length} file records`)),
-  //       catchError(this.handleError('getFileRecords', []))
-  //       // ${JSON.stringify(fileRecords)} // to print the request contents
-  //   );
-  // }
-  public getFileRecords(): Observable<FileRecord[]> {
-
-    return new Observable(obs => {
-      this.apiCallService.callService('getFileRecords').subscribe((respObj) => {
-        if (respObj && respObj.hasOwnProperty('code') && respObj.hasOwnProperty('message')) {
-          obs.error(new ApiErrorModel(respObj));
+    return new Observable((obs) => {
+      this.apiCallService.callService('getFileRecordById', {id}).subscribe((res) => {
+        if (res && res.hasOwnProperty('code') && res.hasOwnProperty('message')) {
+          obs.error(new ApiErrorModel(res));
         } else {
-          obs.next(respObj);
+          obs.next( new FileRecord(res));
         }
       }, (error) => {
+        obs.error(new ApiErrorModel(error.error));
+      });
+    });
+  }
+
+  public getFileRecords(): Observable<FileRecord[]> {
+    return new Observable((obs) => {
+      this.apiCallService.callService('getFileRecords').subscribe((res) => {
+        if (res && res.hasOwnProperty('code') && res.hasOwnProperty('message')) {
+          obs.error(new ApiErrorModel(res));
+        } else {
+          obs.next((res || []).map((obj) => new FileRecord(obj)));
+        }
+      }, (error: any) => {
         obs.error(new ApiErrorModel(error.error));
       });
     });

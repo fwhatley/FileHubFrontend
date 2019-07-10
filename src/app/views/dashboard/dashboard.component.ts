@@ -57,7 +57,7 @@ export class DashboardComponent implements OnInit {
     // upload file, add fileRecordId to the call
     // once those two area created do a get call to the fileRecord by Id and add the fileRecord to the list
     this.fileRecordService.createFileRecord(fileRecord)
-      .subscribe(fr => {
+      .subscribe((fr: FileRecord) => {
 
         // add fieds to create a fhFile: fileRecordId
         fileFormDataToUpload.append('fileRecordId', fr.id);
@@ -65,8 +65,8 @@ export class DashboardComponent implements OnInit {
 
           // returns a file record, get the new fileRecord id
           this.fileRecordService.getFileRecord(fr.id)
-          .subscribe(_fr => {
-            this.fileRecords.push(_fr);
+          .subscribe((getFr: FileRecord) => {
+            this.fileRecords.push(getFr);
           });
         }, (error) => {
           console.error(error);

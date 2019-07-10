@@ -19,6 +19,12 @@ export class ApiDataService {
       method: 'GET',
       path: `/api/fileRecords`
     }),
+    getFileRecordById: new ApiDataModel({
+      apiType: 'mS',
+      apiName: 'FileHubService',
+      method: 'GET',
+      path: `/api/fileRecords/{id}`
+    }),
     getFile: new ApiDataModel({
       apiType: 'mS',
       apiName: 'FileHubService',
