@@ -10,11 +10,11 @@ export class MocksModel {
   public constructor() {
 
     this.mocks = {
-      'ONE_ORGANIZATION': {
+      'SINGLE.ORG': {
         getFileRecords: new MockSingleOrgGetFileRecordsModel(),
         getFile: new MockSingleOrgGetFilesModel(),
       },
-      'MULTI_ORGANIZATIONS': {
+      'MULTI.ORG': {
         getFileRecords: new MockMultiOrgGetFileRecordsModel(),
         getFile: new MockMultiOrgGetFilesModel(),
       },
