@@ -7,6 +7,7 @@ import * as uuid from 'uuid';
 import {ApiDataService} from './api.data.service';
 import {ApiDataModel} from '../models/api.data.model';
 import {ApiMocksService} from '../api.mocks/api.mocks.service';
+import {environment} from '../../environments/environment';
 
 /**
  * handles all API calls to micro services and mocks.
@@ -17,7 +18,7 @@ import {ApiMocksService} from '../api.mocks/api.mocks.service';
 export class ApiCallService {
   private findUrlParam: RegExp = /{\s*[\w\.]+\s*}/g;
   private paramNameRegExp: RegExp = /[\w\.]+/;
-
+  private readonly BASE_URL: string = environment.FileHubApiBaseUrl;
   /**
    * @constructor
    */
@@ -33,8 +34,7 @@ export class ApiCallService {
     const requestHeaders = this.getHeaders(headers || new HttpHeaders(), apiKey || '');
     const apiData = this.apiDataService.getApiData(apiKey) as ApiDataModel;
 
-    const BASE_URL = 'http://142.93.11.203:5000';
-    let url =   `${BASE_URL}${apiData.path}`;
+    let url =   `${this.BASE_URL}${apiData.path}`;
 
     const mockResponse = this.apiMocksService.activeMockFor(apiKey, payload);
     if (mockResponse) {

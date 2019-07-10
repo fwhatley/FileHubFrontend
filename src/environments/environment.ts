@@ -3,8 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
-  FileHubApiBaseUrl: 'http://localhost:5000'
+  production: true,
+  FileHubApiBaseUrl: 'http://localhost:80'
 };
 
 /*
